@@ -9,6 +9,9 @@
 *.user
 *.userosscache
 *.sln.docstates
+/APITemplate/appsettings.json
+/APITemplate/appsettings.*.json
+.idea/
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -395,4 +398,23 @@ FodyWeavers.xsd
 *.msp
 
 # JetBrains Rider
+.idea/
 *.sln.iml
+*.idea/
+.idea_modules/
+
+# Build output
+bin/
+obj/
+
+# Rider-specific configuration
+.vscode/
+*.DotSettings.user
+
+# Rider log and system folders
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/usage.statistics.xml
+.idea/dictionaries
+.idea/shelf
+.idea/.idea.*
