@@ -15,4 +15,7 @@ public static class SqlColumnTypeHelper
     
     /// <summary> Decimal type with -> Precision: 10 and Scale: 2 </summary>
     public const string DecimalP10S2 = "DECIMAL(10,2)";
+    
+    /// <summary> Standard Datetime </summary>
+    public const string Datetime = "DATETIME";
 }

@@ -20,7 +20,8 @@ public class SaleMap : IEntityTypeConfiguration<Domain.Entities.Sale.Sale>
             .HasMaxLength(50);
 
         builder.Property(x => x.SoldIn)
-            .IsRequired();
+            .IsRequired()
+            .HasColumnType(SqlColumnTypeHelper.Datetime);
 
         builder.Property(x => x.SoldBy)
             .IsRequired()

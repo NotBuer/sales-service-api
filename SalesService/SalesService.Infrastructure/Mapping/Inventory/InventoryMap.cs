@@ -16,6 +16,7 @@ public class InventoryMap : IEntityTypeConfiguration<Domain.Entities.Inventory.I
             .HasColumnType(SqlColumnTypeHelper.Int);
         
         builder.Property(x => x.UpdatedAt)
-            .IsRequired();
+            .IsRequired()
+            .HasColumnType(SqlColumnTypeHelper.Datetime);
     }
 }
