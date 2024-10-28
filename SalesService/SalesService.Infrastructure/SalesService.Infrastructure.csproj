@@ -7,8 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Context\" />
-      <Folder Include="IOC\" />
       <Folder Include="Repository\" />
     </ItemGroup>
 
@@ -23,6 +21,10 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\SalesService.Domain\SalesService.Domain.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,6 +1,14 @@
 using System.Text.Json.Serialization;
+using SalesService.Infrastructure.IOC;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var services = builder.Services;
+var configuration = builder.Configuration;
+
+services
+    .AddDependencyInjection()
+    .AddDatabaseConnection(configuration);
 
 builder.Services.ConfigureHttpJsonOptions(options =>
 {

@@ -1,12 +1,10 @@
-﻿using SalesService.Domain.Entities.Common;
-
-namespace SalesService.Domain.Entities;
+﻿namespace SalesService.Domain.Entities.Customer;
 
 public class Customer
 {
-    private Customer(Guid id, string name, string email)
+    private Customer(string name, string email)
     {
-        Id = id;
+        Id = new Guid();
         Name = name;
         Email = email;
     }
@@ -15,6 +13,6 @@ public class Customer
     public string Name { get; private set; }
     public string Email { get; private set; }
 
-    public static Customer Create(Guid id, string name, string email) => 
-        new Customer(id, name, email);
+    public static Customer Create(string name, string email) => 
+        new Customer(name, email);
 }

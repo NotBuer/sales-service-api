@@ -1,15 +1,15 @@
 ﻿using SalesService.Domain.Entities.Common;
 using SalesService.Domain.Entities.Enums;
 
-namespace SalesService.Domain.Entities;
+namespace SalesService.Domain.Entities.Sale;
 
 public sealed class Sale : Entity
 {
     private Sale(
-        Guid id, string customerName, string productName,  DateTime soldIn,  string soldBy,  byte productAmount,
+        string customerName, string productName,  DateTime soldIn,  string soldBy,  byte productAmount,
         decimal productUnitPrice,  decimal productUnitDiscount,  decimal saleTotalPrice,  SaleStatus saleStatus)
     {
-        Id = id;
+        Id = new Guid();
         CustomerName = customerName;
         ProductName = productName;
         SoldIn = soldIn;
@@ -37,7 +37,7 @@ public sealed class Sale : Entity
         decimal productUnitPrice,  decimal productUnitDiscount,  decimal saleTotalPrice,  SaleStatus saleStatus)
     {
         var sale = new Sale(
-            new Guid(), customerName, productName, soldIn, soldBy, productAmount, 
+            customerName, productName, soldIn, soldBy, productAmount, 
             productUnitPrice, productUnitDiscount, saleTotalPrice, saleStatus
         );
         sale.RaiseEvent(new SaleCreatedDomainEvent());
