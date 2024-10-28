@@ -7,7 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Context\_Common\" />
       <Folder Include="Repository\" />
     </ItemGroup>
 
@@ -26,6 +25,18 @@
 
     <ItemGroup>
       <ProjectReference Include="..\SalesService.Domain\SalesService.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Context\_Common\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Context\_Common\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Context\_Common\**" />
     </ItemGroup>
 
 </Project>
