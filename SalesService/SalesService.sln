@@ -13,8 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SalesService.Infrastructure
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SalesService.UnitTest", "SalesService.UnitTest\SalesService.UnitTest.csproj", "{E9A8F9EF-5251-412B-A58F-61585ABC2F76}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database.sqlproj", "SalesService.Data\Database.sqlproj.user", "{62E36FD6-7E3E-45B2-AA6F-D3A680A5C5D5}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
