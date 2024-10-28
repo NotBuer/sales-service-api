@@ -6,5 +6,16 @@ public class InventoryMap : IEntityTypeConfiguration<Domain.Entities.Inventory.I
     {
         builder.ToTable(nameof(Domain.Entities.Inventory.Inventory), Schemas.Inventory)
             .HasKey(x => x.ProductId);
+
+        builder.Property(x => x.ProductId)
+            .IsRequired()
+            .HasColumnType(SqlColumnTypeHelper.UniqueIdentifier);
+
+        builder.Property(x => x.Amount)
+            .IsRequired()
+            .HasColumnType(SqlColumnTypeHelper.Int);
+        
+        builder.Property(x => x.UpdatedAt)
+            .IsRequired();
     }
 }

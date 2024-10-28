@@ -1,4 +1,4 @@
-﻿namespace SalesService.Infrastructure.Mapping.Common;
+﻿namespace SalesService.Infrastructure.Mapping._Common;
 
 public static class Schemas
 {
