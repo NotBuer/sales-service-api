@@ -1,4 +1,4 @@
-﻿namespace SalesService.Infrastructure.Mapping._Common;
+﻿namespace SalesService.Infrastructure.Mapping.Common;
 
 public static class SqlColumnTypeHelper
 {
