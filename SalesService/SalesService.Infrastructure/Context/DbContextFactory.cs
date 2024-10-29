@@ -20,15 +20,13 @@ internal class DbContextFactory : IDesignTimeDbContextFactory<Context>
         return new Context(builder.Options);
     }
     
-    public static IConfigurationRoot GetConfiguration()
-    {
-        return new ConfigurationBuilder()
-            .SetBasePath($@"{Directory.GetParent(Directory.GetCurrentDirectory())}\SalesService.API")
+    public static IConfigurationRoot GetConfiguration() =>
+        new ConfigurationBuilder()
+            .SetBasePath(@$"{Directory.GetParent(Directory.GetCurrentDirectory())}\SalesService.API")
             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
             .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true, reloadOnChange: true)
             .AddEnvironmentVariables()
-            .Build();  
-    } 
+            .Build(); 
      
     public static string GetConnectionString(IConfigurationRoot configuration) =>
         configuration.GetConnectionString("Context") ?? throw new InvalidOperationException("Connection string 'Context' not found.");
