@@ -22,11 +22,8 @@ internal class DbContextFactory : IDesignTimeDbContextFactory<Context>
     
     public static IConfigurationRoot GetConfiguration()
     {
-        var currentDir = Directory.GetCurrentDirectory();
-        var parentDir = Directory.GetParent(currentDir);
-        var apiDir = $@"{parentDir}\SalesService.API";
         return new ConfigurationBuilder()
-            .SetBasePath(apiDir)
+            .SetBasePath($@"{Directory.GetParent(Directory.GetCurrentDirectory())}\SalesService.API")
             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
             .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true, reloadOnChange: true)
             .AddEnvironmentVariables()
