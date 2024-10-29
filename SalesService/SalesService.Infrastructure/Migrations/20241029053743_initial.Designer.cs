@@ -12,8 +12,8 @@ using SalesService.Infrastructure.Context;
 namespace SalesService.Infrastructure.Migrations
 {
     [DbContext(typeof(Context.Context))]
-    [Migration("20241029011530_initial")]
-    partial class Initial
+    [Migration("20241029053743_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -1,37 +1,38 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
-using SalesService.Infrastructure.Context;
+﻿using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
 
-namespace SalesService.API;
+namespace SalesService.Infrastructure.Context;
 
-public class DbContextFactory : IDesignTimeDbContextFactory<Context>
+internal class DbContextFactory : IDesignTimeDbContextFactory<Context>
 {
     public Context CreateDbContext(string[] args)
     {
-        var environment = GetEnvironment();
-        
-        if (environment is null)
-            throw new ArgumentException($"Missing environment variable: {environment}.");
-
-        var configuration = GetConfiguration(environment);
-
-        var builder = new DbContextOptionsBuilder<Context>();
+        var configuration = GetConfiguration();
         var connectionString = GetConnectionString(configuration);
+        
+        var builder = new DbContextOptionsBuilder<Context>();
         builder.UseSqlServer(connectionString);
+#if DEBUG
+        builder.EnableDetailedErrors();
+        builder.EnableSensitiveDataLogging();      
+#endif
         
         return new Context(builder.Options);
     }
     
-    public static string? GetEnvironment() => Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-    
-    public static IConfigurationRoot GetConfiguration(string environment) => 
-        new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json")
-            .AddJsonFile($"appsettings.{environment}.json", optional: true, reloadOnChange: true)
+    public static IConfigurationRoot GetConfiguration()
+    {
+        var currentDir = Directory.GetCurrentDirectory();
+        var parentDir = Directory.GetParent(currentDir);
+        var apiDir = $@"{parentDir}\SalesService.API";
+        return new ConfigurationBuilder()
+            .SetBasePath(apiDir)
+            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+            .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true, reloadOnChange: true)
             .AddEnvironmentVariables()
-            .Build();
+            .Build();  
+    } 
      
     public static string GetConnectionString(IConfigurationRoot configuration) =>
-        configuration.GetConnectionString("Context");
+        configuration.GetConnectionString("Context") ?? throw new InvalidOperationException("Connection string 'Context' not found.");
 }
