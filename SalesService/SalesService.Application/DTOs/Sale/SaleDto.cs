@@ -1,3 +1,7 @@
-﻿namespace SalesService.Application.DTOs.Sale;
+﻿using SalesService.Domain.Entities.Enums;
 
-public record SaleDto();
+namespace SalesService.Application.DTOs.Sale;
+
+public record SaleDto(
+    Guid Id, string CustomerName, string ProductName, DateTime SoldIn, string SoldBy, byte ProductAmount, 
+    decimal ProductUnitPrice, decimal ProductUnitDiscount, decimal SaleTotalPrice, SaleStatus SaleStatus);
