@@ -58,17 +58,3 @@ public sealed class Repository<TEntity>(DbContext context) : IRepository<TEntity
 
     ~Repository() => Dispose(false);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
