@@ -6,7 +6,9 @@ var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 var configuration = builder.Configuration;
 
-services.AddDbContext();
+services
+    .AddDbContext()
+    .AddDependencyInjection();
 
 builder.Services.ConfigureHttpJsonOptions(options =>
 {

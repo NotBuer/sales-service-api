@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.DependencyInjection;
+using SalesService.Domain.Interfaces;
 using SalesService.Infrastructure.Context;
 
 namespace SalesService.Infrastructure.IOC;
@@ -22,6 +23,9 @@ public static class DependencyInjection
     public static IServiceCollection AddDependencyInjection(
         this IServiceCollection services)
     {
+        services.AddScoped(typeof(IWriteRepository<>), typeof(Repository.Repository<>));
+        services.AddScoped(typeof(IReadRepository<>), typeof(Repository.Repository<>));
+        services.AddScoped(typeof(IRepository<>), typeof(Repository.Repository<>));
         return services;
     }
 }
