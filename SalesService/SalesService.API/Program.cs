@@ -1,44 +1,40 @@
 using System.Text.Json.Serialization;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using MicroElements.OpenApi.FluentValidation;
+using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
+using SalesService.API;
+using SalesService.Application.Requests.Common;
+using SalesService.Application.Setup;
+using SalesService.Application.Validations.Common;
 using SalesService.Infrastructure.IOC;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var services = builder.Services;
-var configuration = builder.Configuration;
+
 
 services
     .AddDbContext()
     .AddDependencyInjection();
 
-builder.Services.ConfigureHttpJsonOptions(options =>
-{
-    options.SerializerOptions.TypeInfoResolverChain.Insert(0, AppJsonSerializerContext.Default);
-});
+services.AddFluentValidationAutoValidation();
+services.AddValidatorsFromAssemblyContaining(typeof(RequestValidator<IRequest>));
+services.AddValidatorsFromAssemblies(ApplicationLayerAssembly.Assemblies);
+
+#if DEBUG
+services.AddEndpointsApiExplorer();
+services.AddSwaggerGen();
+services.AddFluentValidationRulesToSwagger();
+#endif
 
 var app = builder.Build();
 
-var sampleTodos = new Todo[]
-{
-    new(1, "Walk the dog"),
-    new(2, "Do the dishes", DateOnly.FromDateTime(DateTime.Now)),
-    new(3, "Do the laundry", DateOnly.FromDateTime(DateTime.Now.AddDays(1))),
-    new(4, "Clean the bathroom"),
-    new(5, "Clean the car", DateOnly.FromDateTime(DateTime.Now.AddDays(2)))
-};
+#if DEBUG
+app.UseSwagger();
+app.UseSwaggerUI();
+#endif
 
-var todosApi = app.MapGroup("/todos");
-todosApi.MapGet("/", () => sampleTodos);
-todosApi.MapGet("/{id}", (int id) =>
-    sampleTodos.FirstOrDefault(a => a.Id == id) is { } todo
-        ? Results.Ok(todo)
-        : Results.NotFound());
-
+app.MapEndpoints();
 app.UseHttpsRedirection();
 app.Run();
-
-public record Todo(int Id, string? Title, DateOnly? DueBy = null, bool IsComplete = false);
-
-[JsonSerializable(typeof(Todo[]))]
-internal partial class AppJsonSerializerContext : JsonSerializerContext
-{
-}
