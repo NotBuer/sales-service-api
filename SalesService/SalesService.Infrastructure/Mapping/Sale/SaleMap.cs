@@ -1,6 +1,6 @@
 ﻿namespace SalesService.Infrastructure.Mapping.Sale;
 
-public class SaleMap : IEntityTypeConfiguration<Domain.Entities.Sale.Sale>
+internal class SaleMap : IEntityTypeConfiguration<Domain.Entities.Sale.Sale>
 {
     public void Configure(EntityTypeBuilder<Domain.Entities.Sale.Sale> builder)
     {

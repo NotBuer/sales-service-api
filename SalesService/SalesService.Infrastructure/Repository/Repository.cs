@@ -1,5 +1,5 @@
 ﻿using System.Linq.Expressions;
-using SalesService.Domain.Interfaces;
+using SalesService.Domain.Interfaces.Repository;
 
 namespace SalesService.Infrastructure.Repository;
 

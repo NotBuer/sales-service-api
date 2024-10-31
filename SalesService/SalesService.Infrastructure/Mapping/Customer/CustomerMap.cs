@@ -1,6 +1,6 @@
 ﻿namespace SalesService.Infrastructure.Mapping.Customer;
 
-public class CustomerMap : IEntityTypeConfiguration<Domain.Entities.Customer.Customer>
+internal class CustomerMap : IEntityTypeConfiguration<Domain.Entities.Customer.Customer>
 {
     public void Configure(EntityTypeBuilder<Domain.Entities.Customer.Customer> builder)
     {

@@ -1,6 +1,6 @@
 ﻿namespace SalesService.Infrastructure.Mapping.Inventory;
 
-public class ProductMap : IEntityTypeConfiguration<Domain.Entities.Inventory.Product>
+internal class ProductMap : IEntityTypeConfiguration<Domain.Entities.Inventory.Product>
 {
     public void Configure(EntityTypeBuilder<Domain.Entities.Inventory.Product> builder)
     {

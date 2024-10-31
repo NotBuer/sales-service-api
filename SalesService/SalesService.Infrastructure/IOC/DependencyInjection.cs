@@ -1,6 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.DependencyInjection;
-using SalesService.Domain.Interfaces;
+﻿using Microsoft.Extensions.DependencyInjection;
+using SalesService.Domain.Interfaces.Repository;
 using SalesService.Infrastructure.Context;
 
 namespace SalesService.Infrastructure.IOC;
