@@ -1,6 +1,6 @@
 ﻿namespace SalesService.Application.Requests.Common;
 
-public interface IDeleteRequest
+public interface IDeleteRequest : IRequest
 {
     
 }

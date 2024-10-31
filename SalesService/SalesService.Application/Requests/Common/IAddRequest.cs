@@ -1,6 +1,6 @@
 ﻿namespace SalesService.Application.Requests.Common;
 
-public interface IAddRequest
+public interface IAddRequest : IRequest
 {
     
 }
