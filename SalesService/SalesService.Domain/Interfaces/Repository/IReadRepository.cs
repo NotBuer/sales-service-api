@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace SalesService.Domain.Interfaces;
+namespace SalesService.Domain.Interfaces.Repository;
 
 public interface IReadRepository<TEntity> 
     where TEntity : class
