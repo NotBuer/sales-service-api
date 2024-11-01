@@ -13,7 +13,7 @@ internal class ResponseMetadataProvider : IEndpointMetadataProvider
         
         builder.Metadata.Add(new OpenApiResponse
         {
-            Description = "Default response structure data",
+            Description = "Default Response Metadata",
             Content = new Dictionary<string, OpenApiMediaType>
             {
                 ["application/json"] = new OpenApiMediaType
