@@ -1,8 +1,6 @@
-﻿using SalesService.Application.Requests.Common;
+﻿using SalesService.Application.DTOs.Customer;
+using SalesService.Application.Requests.Common;
 
 namespace SalesService.Application.Requests;
 
-public class CreateCustomerRequest : IAddRequest
-{
-    
-}
+public record CreateCustomerRequest(CustomerDto CustomerDto) : IAddRequest;

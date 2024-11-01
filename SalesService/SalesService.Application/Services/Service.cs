@@ -6,12 +6,12 @@ using SalesService.Domain.Validations;
 
 namespace SalesService.Application.Services;
 
-public class Service<TEntity, TRequest>(
+public class Service<TRequest, TEntity>(
     IWriteRepository<TEntity> writeRepository,
     RequestValidator<TRequest> requestValidator,
-    ValidationResult validationResult) : IWriteService<TEntity> 
-    where TEntity : class 
+    ValidationResult validationResult) : IWriteService<TEntity>
     where TRequest : IRequest
+    where TEntity : class 
 {
     public Task<ValidationResult> AddAsync(TEntity entity, CancellationToken cancellationToken)
     {

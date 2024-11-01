@@ -1,8 +1,11 @@
-﻿namespace SalesService.Application.Responses.Common;
+﻿using SalesService.Domain.Validations;
+
+namespace SalesService.Application.Responses.Common;
 
 public interface IResponse
 {
-    public MetaData MetaData { get; init; }
+    public Metadata Metadata { get; init; }
+    public ValidationResult ValidationResult { get; init; }
 }
 
-public record MetaData(string? Status, string? Message, DateTime Timestamp);
+public record Metadata(string? Status, string? Message, DateTime Timestamp);// : IEndpointMetadataProvider;

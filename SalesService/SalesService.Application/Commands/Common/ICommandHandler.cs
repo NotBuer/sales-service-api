@@ -16,9 +16,11 @@ public interface ICommandHandler<TRequest>
     public Task Handle(TRequest request, CancellationToken cancellationToken);
 }
 
-public interface IAddCommandHandler<TRequest, TResponse, TDto, TEntity> : ICommandHandler<TRequest, TResponse> where TRequest: class, IAddRequest where TResponse : IResponse
-{  }
-public interface IUpdateCommandHandler<TRequest, TResponse, TDto, TEntity> : ICommandHandler<TRequest, TResponse> where TRequest: class, IUpdateRequest where TResponse : IResponse
-{  }
-public interface IDeleteCommandHandler<TRequest, TResponse, TDto, TEntity> : ICommandHandler<TRequest, TResponse> where TRequest: class, IDeleteRequest where TResponse : IResponse
-{  }
+public interface IAddCommandHandler<TRequest, TResponse, TEntity> : ICommandHandler<TRequest, TResponse>
+    where TRequest : IAddRequest where TResponse : IResponse;
+
+public interface IUpdateCommandHandler<TRequest, TResponse, TEntity> : ICommandHandler<TRequest, TResponse>
+    where TRequest : IUpdateRequest where TResponse : IResponse;
+
+public interface IDeleteCommandHandler<TRequest, TResponse, TEntity> : ICommandHandler<TRequest, TResponse> 
+    where TRequest: IDeleteRequest where TResponse : IResponse;
