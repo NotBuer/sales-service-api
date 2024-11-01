@@ -14,7 +14,7 @@ public class ValidationResult
     private List<ValidationError> _validationErrorsList;
     public bool IsValid => _validationErrorsList.Count == 0;
 
-    private ValidationResult()
+    public ValidationResult()
     {
         _validationErrorsList = [];
     }
@@ -34,14 +34,15 @@ public class ValidationResult
         return this;
     }
 
-    internal void AddFluentValidationResult(FluentValidation.Results.ValidationResult validationResult)
+    public void AddFluentValidationResult(FluentValidation.Results.ValidationResult validationResult)
     {
         if (validationResult.IsValid) return;
 
         ErrorCode = ValidationErrorCode.UnprocessableEntity;
         _validationErrorsList.AddRange(
             validationResult.Errors.Select(
-                x => ValidationError.Create($"{x.PropertyName}: {x.ErrorMessage} / {x.ErrorCode} / {x.Severity}")));
+                x => ValidationError.Create(
+                    $"$Message: {x.ErrorMessage} \n Property: {x.PropertyName} \n AttemptedValue: {x.AttemptedValue}")));
     }
     
 }

@@ -4,7 +4,21 @@ using SalesService.Domain.Validations;
 
 namespace SalesService.Application.Responses;
 
-public record CustomerCreatedResponse(Metadata Metadata, CustomerDto CustomerDto, ValidationResult ValidationResult) : IResponse
+public record CustomerCreatedResponse : IResponse
 {
-    public CustomerDto? CustomerDto { get; init; } = CustomerDto;
+    public CustomerCreatedResponse() {}
+    
+    public CustomerCreatedResponse(
+        Metadata metadata,
+        object content,
+        ValidationResult validationResult)
+    {
+        Metadata = metadata;
+        Content = content;
+        ValidationResult = validationResult;
+    }
+
+    public Metadata Metadata { get; init; }
+    public object Content { get; init; }
+    public ValidationResult ValidationResult { get; init; }
 }

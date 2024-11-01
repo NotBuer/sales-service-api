@@ -6,7 +6,7 @@ namespace SalesService.Infrastructure.IOC;
 
 public static class DependencyInjection
 {
-    private static IServiceCollection AddDbContext(this IServiceCollection services)
+    private static IServiceCollection AddDatabaseContext(this IServiceCollection services)
     {
         return services.AddDbContext<Context.Context>(opt =>
         {
@@ -21,7 +21,7 @@ public static class DependencyInjection
     public static IServiceCollection AddInfrastructure(
         this IServiceCollection services)
     {
-        services.AddDbContext();
+        services.AddDatabaseContext();
         
         services.AddScoped(typeof(IWriteRepository<>), typeof(Repository.Repository<>));
         services.AddScoped(typeof(IReadRepository<>), typeof(Repository.Repository<>));

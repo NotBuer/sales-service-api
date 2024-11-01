@@ -3,11 +3,18 @@ using SalesService.Domain.Interfaces.Repository;
 
 namespace SalesService.Infrastructure.Repository;
 
-public sealed class Repository<TEntity>(DbContext context) : IRepository<TEntity>, IDisposable
+public sealed class Repository<TEntity> : IRepository<TEntity>, IDisposable
     where TEntity : class
 {
     private bool _disposed = false;
-    private readonly DbSet<TEntity> _dbSet = context.Set<TEntity>();
+    private readonly DbSet<TEntity> _dbSet;
+    private readonly DbContext _context;
+
+    public Repository(DbContext context)
+    {
+        _context = context;
+        _dbSet = context.Set<TEntity>();
+    }
 
     public async Task AddAsync(
         TEntity entity,
@@ -32,7 +39,7 @@ public sealed class Repository<TEntity>(DbContext context) : IRepository<TEntity
         var entity = await _dbSet.FindAsync(new object?[] { id }, cancellationToken: cancellationToken);
 
         if (@readonly && entity is not null)
-            context.Entry(entity).State = EntityState.Detached;
+            _context.Entry(entity).State = EntityState.Detached;
 
         return entity;
     }
@@ -52,7 +59,7 @@ public sealed class Repository<TEntity>(DbContext context) : IRepository<TEntity
     private void Dispose(bool disposing)
     {
         if (_disposed) return;
-        if (disposing) context.Dispose();
+        if (disposing) _context.Dispose();
         _disposed = true;
     }
 
