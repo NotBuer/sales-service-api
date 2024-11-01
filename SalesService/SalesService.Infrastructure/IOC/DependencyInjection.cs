@@ -6,9 +6,9 @@ namespace SalesService.Infrastructure.IOC;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddDbContext(this IServiceCollection services)
+    private static IServiceCollection AddDbContext(this IServiceCollection services)
     {
-        services.AddDbContext<Context.Context>(opt =>
+        return services.AddDbContext<Context.Context>(opt =>
         {
             opt.UseSqlServer(DbContextFactory.GetConnectionString(DbContextFactory.GetConfiguration()));
 #if DEBUG
@@ -16,12 +16,13 @@ public static class DependencyInjection
             opt.EnableSensitiveDataLogging();      
 #endif
         });
-        return services;
     }
     
-    public static IServiceCollection AddDependencyInjection(
+    public static IServiceCollection AddInfrastructure(
         this IServiceCollection services)
     {
+        services.AddDbContext();
+        
         services.AddScoped(typeof(IWriteRepository<>), typeof(Repository.Repository<>));
         services.AddScoped(typeof(IReadRepository<>), typeof(Repository.Repository<>));
         services.AddScoped(typeof(IRepository<>), typeof(Repository.Repository<>));
