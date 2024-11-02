@@ -6,7 +6,7 @@ public class Context : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Ignore<Domain.Entities.Common.DomainEvent>();
+        modelBuilder.Ignore<Domain.Events.Common.DomainEvent>();
         
         base.OnModelCreating(modelBuilder);
 

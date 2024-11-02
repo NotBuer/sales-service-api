@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SalesService.Domain.Interfaces.Repository;
 using SalesService.Infrastructure.Context;
+using SalesService.Infrastructure.UnitOfWork;
 
 namespace SalesService.Infrastructure.IOC;
 
@@ -22,6 +23,8 @@ public static class DependencyInjection
         this IServiceCollection services)
     {
         services.AddDatabaseContext();
+
+        services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
         
         services.AddScoped(typeof(IWriteRepository<>), typeof(Repository.Repository<>));
         services.AddScoped(typeof(IReadRepository<>), typeof(Repository.Repository<>));

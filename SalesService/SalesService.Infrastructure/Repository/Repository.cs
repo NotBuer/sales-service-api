@@ -3,23 +3,18 @@ using SalesService.Domain.Interfaces.Repository;
 
 namespace SalesService.Infrastructure.Repository;
 
-public sealed class Repository<TEntity> : IRepository<TEntity>, IDisposable
+public sealed class Repository<TEntity>(Context.Context context) : IRepository<TEntity>, IDisposable
     where TEntity : class
 {
     private bool _disposed = false;
-    private readonly DbSet<TEntity> _dbSet;
-    private readonly DbContext _context;
-
-    public Repository(DbContext context)
-    {
-        _context = context;
-        _dbSet = context.Set<TEntity>();
-    }
+    private readonly DbSet<TEntity> _dbSet = context.Set<TEntity>();
 
     public async Task AddAsync(
         TEntity entity,
-        CancellationToken cancellationToken) =>
+        CancellationToken cancellationToken)
+    {
         await _dbSet.AddAsync(entity, cancellationToken);
+    }
 
     public async Task UpdateAsync(
         TEntity entity, 
@@ -39,7 +34,7 @@ public sealed class Repository<TEntity> : IRepository<TEntity>, IDisposable
         var entity = await _dbSet.FindAsync(new object?[] { id }, cancellationToken: cancellationToken);
 
         if (@readonly && entity is not null)
-            _context.Entry(entity).State = EntityState.Detached;
+            context.Entry(entity).State = EntityState.Detached;
 
         return entity;
     }
@@ -48,7 +43,9 @@ public sealed class Repository<TEntity> : IRepository<TEntity>, IDisposable
         Expression<Func<TEntity, bool>> predicate,
         bool @readonly,
         CancellationToken cancellationToken) =>
-        await Task.Run(() => @readonly ? _dbSet.Where(predicate).AsNoTracking() : _dbSet.Where(predicate), cancellationToken);
+        await Task.Run(() => @readonly ? 
+            _dbSet.Where(predicate).AsNoTracking() : 
+            _dbSet.Where(predicate), cancellationToken);
 
     public void Dispose()
     {
@@ -59,7 +56,7 @@ public sealed class Repository<TEntity> : IRepository<TEntity>, IDisposable
     private void Dispose(bool disposing)
     {
         if (_disposed) return;
-        if (disposing) _context.Dispose();
+        if (disposing) context.Dispose();
         _disposed = true;
     }
 

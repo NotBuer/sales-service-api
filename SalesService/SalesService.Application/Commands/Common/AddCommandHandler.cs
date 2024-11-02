@@ -16,8 +16,8 @@ public class AddCommandHandler<TRequest, TResponse, TEntity>(
     {
         var validationResult = new ValidationResult();
         
-        validationResult.Add(await requestHandlerService.AddAsync(request, cancellationToken));
-
+        validationResult.Add(await requestHandlerService.AddAsync(request, validationResult, cancellationToken));
+        
         var response = new TResponse()
         {
             Metadata = new Metadata("Okay", "Metadata AddCommandHandler", DateTime.UtcNow),
