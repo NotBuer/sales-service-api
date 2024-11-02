@@ -7,15 +7,15 @@ public interface IRequestHandlerService<TRequest, TEntity>
     where TRequest : IRequest
     where TEntity : class
 {
-    Task<ValidationResult> AddAsync (
+    Task<RequestHandlerContent> AddAsync (
         TRequest request, 
         ValidationResult validationResult, 
         CancellationToken cancellationToken);
-    Task<ValidationResult> UpdateAsync (
+    Task<RequestHandlerContent> UpdateAsync (
         TRequest request, 
         ValidationResult validationResult, 
         CancellationToken cancellationToken);
-    Task<ValidationResult> DeleteAsync (
+    Task<RequestHandlerContent> DeleteAsync (
         TRequest request, 
         ValidationResult validationResult, 
         CancellationToken cancellationToken);

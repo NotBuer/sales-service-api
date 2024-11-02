@@ -9,22 +9,20 @@ public sealed class Repository<TEntity>(Context.Context context) : IRepository<T
     private bool _disposed = false;
     private readonly DbSet<TEntity> _dbSet = context.Set<TEntity>();
 
-    public async Task AddAsync(
+    public async Task<TEntity> AddAsync(
         TEntity entity,
-        CancellationToken cancellationToken)
-    {
-        await _dbSet.AddAsync(entity, cancellationToken);
-    }
-
-    public async Task UpdateAsync(
-        TEntity entity, 
         CancellationToken cancellationToken) =>
-        await Task.Run(() => _dbSet.Update(entity), cancellationToken);
+        (await _dbSet.AddAsync(entity, cancellationToken)).Entity;
 
-    public async Task DeleteAsync(
-        TEntity entity, 
+    public async Task<TEntity> UpdateAsync(
+        TEntity entity,
         CancellationToken cancellationToken) =>
-        await Task.Run(() => _dbSet.Remove(entity), cancellationToken);
+        await Task.Run(() => _dbSet.Update(entity).Entity, cancellationToken);
+
+    public async Task<TEntity> DeleteAsync(
+        TEntity entity,
+        CancellationToken cancellationToken) =>
+        await Task.Run(() => _dbSet.Remove(entity).Entity, cancellationToken);
 
     public async Task<TEntity?> GetByIdAsync(
         Guid id, 

@@ -17,24 +17,25 @@ public class RequestHandlerService<TRequest, TEntity>(
     where TEntity : class
 {
     
-    public async Task<ValidationResult> AddAsync(
+    public async Task<RequestHandlerContent> AddAsync(
         TRequest request,
         ValidationResult validationResult,
         CancellationToken cancellationToken)
     {
         validationResult.AddFluentValidationResult(await validator.ValidateAsync(request, cancellationToken));
-        if (!validationResult.IsValid) return validationResult;
+        if (!validationResult.IsValid) return RequestHandlerContent.NoContent(validationResult);
         
         await unitOfWork.BeginAsync(cancellationToken);
 
         var entity = mapper.Map<TEntity>(request);
-        await repository.AddAsync(entity, cancellationToken);
+        var content = await repository.AddAsync(entity, cancellationToken);
         
         await unitOfWork.CommitAsync(cancellationToken);
-        return validationResult;
+        
+        return RequestHandlerContent.WithContent(validationResult, content);
     }
 
-    public Task<ValidationResult> UpdateAsync(
+    public Task<RequestHandlerContent> UpdateAsync(
         TRequest request,
         ValidationResult validationResult,
         CancellationToken cancellationToken)
@@ -42,7 +43,7 @@ public class RequestHandlerService<TRequest, TEntity>(
         throw new NotImplementedException();
     }
 
-    public Task<ValidationResult> DeleteAsync(
+    public Task<RequestHandlerContent> DeleteAsync(
         TRequest request,
         ValidationResult validationResult,
         CancellationToken cancellationToken)
