@@ -1,4 +1,5 @@
-﻿using SalesService.Domain.Entities.Common;
+﻿using SalesService.Domain.Events.Common;
+using SalesService.Domain.Entities.Common;
 using SalesService.Domain.Entities.Enums;
 
 namespace SalesService.Domain.Entities.Inventory;

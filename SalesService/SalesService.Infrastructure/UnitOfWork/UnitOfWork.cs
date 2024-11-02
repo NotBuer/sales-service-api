@@ -1,9 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage;
 using SalesService.Domain.Entities.Common;
+using SalesService.Domain.Events.Common;
 
 namespace SalesService.Infrastructure.UnitOfWork;
 
-public class UnitOfWork(Context.Context context) : IUnitOfWork, IDisposable
+public class UnitOfWork(
+    Context.Context context,
+    IDomainEventHandler domainEventHandler) : IUnitOfWork, IDisposable
 {
     private bool _disposed;
     private IDbContextTransaction? _transaction = null;
@@ -15,6 +18,7 @@ public class UnitOfWork(Context.Context context) : IUnitOfWork, IDisposable
             throw new InvalidOperationException(
                 $"Transaction with Id: {_transaction.TransactionId} has already been started!");
         }
+        
         _transaction = await context.Database.BeginTransactionAsync(cancellationToken);
         _disposed = false;
     }
@@ -24,6 +28,15 @@ public class UnitOfWork(Context.Context context) : IUnitOfWork, IDisposable
         try
         {
             await SaveAsync(cancellationToken);
+
+            var domainEventEntities =
+                context.ChangeTracker.Entries<Entity>()
+                    .Where(x => x.Entity.DomainEvents.Any())
+                    .Select(x => x.Entity)
+                    .ToList();
+            
+            await domainEventHandler.HandleAsync(domainEventEntities);
+            
             await _transaction!.CommitAsync(cancellationToken);
         }
         catch (Exception e)

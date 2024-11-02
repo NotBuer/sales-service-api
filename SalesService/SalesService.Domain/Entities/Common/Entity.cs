@@ -1,12 +1,14 @@
-﻿namespace SalesService.Domain.Entities.Common;
+﻿using SalesService.Domain.Events.Common;
+
+namespace SalesService.Domain.Entities.Common;
 
 public abstract class Entity
 {
     private List<DomainEvent> _domainEvents = [];
     public IReadOnlyList<DomainEvent> DomainEvents => _domainEvents.AsReadOnly();
 
-    protected void RaiseEvent(DomainEvent domainEvent) =>
+    protected internal void RaiseEvent(DomainEvent domainEvent) =>
         _domainEvents.Add(domainEvent);
     
-    protected void ClearEvents() => _domainEvents.Clear();
+    protected internal void ClearEvents() => _domainEvents.Clear();
 }

@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using SalesService.Domain.Events;
+using SalesService.Domain.Events.Common;
 using SalesService.Domain.Interfaces.Repository;
 using SalesService.Infrastructure.Context;
 using SalesService.Infrastructure.UnitOfWork;
@@ -25,6 +27,8 @@ public static class DependencyInjection
         services.AddDatabaseContext();
 
         services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
+
+        services.AddScoped<IDomainEventHandler, DomainEventHandler>();
         
         services.AddScoped(typeof(IWriteRepository<>), typeof(Repository.Repository<>));
         services.AddScoped(typeof(IReadRepository<>), typeof(Repository.Repository<>));
