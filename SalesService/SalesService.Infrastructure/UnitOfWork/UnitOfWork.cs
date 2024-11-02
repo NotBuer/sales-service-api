@@ -15,7 +15,6 @@ public class UnitOfWork(Context.Context context) : IUnitOfWork, IDisposable
             throw new InvalidOperationException(
                 $"Transaction with Id: {_transaction.TransactionId} has already been started!");
         }
-        context.ChangeTracker.Entries<Entity>()
         _transaction = await context.Database.BeginTransactionAsync(cancellationToken);
         _disposed = false;
     }
