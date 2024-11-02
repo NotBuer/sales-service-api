@@ -5,21 +5,16 @@ namespace SalesService.Domain.Events;
 
 public class DomainEventHandler() : IDomainEventHandler
 {
-    public async Task HandleAsync(List<Entity> domainEventEntities)
+    public void Handle(List<Entity> domainEventEntities)
     {
-        await Task.WhenAll(
-            domainEventEntities.SelectMany(x =>
-            {
-                var tasks = x.DomainEvents.Select(EventDispatchedAsync);
-                x.ClearEvents();
-                return tasks;
-            })
-        );
+        domainEventEntities.ForEach(x =>
+        {
+            x.DomainEvents.ToList().ForEach(EventDispatch);
+            x.ClearEvents();
+        });
     }
-
-    public async Task EventDispatchedAsync(DomainEvent domainEvent)
-    {
-        Console.WriteLine($"Domain Event: {domainEvent.GetType().Name} occurred");
-        await Task.Delay(50);
-    }
+    
+    private static void EventDispatch(DomainEvent domainEvent) =>
+        Console.WriteLine($"Event: {domainEvent.GetType().Name} occurred at ${domainEvent.OccurredOn}");
+    
 }

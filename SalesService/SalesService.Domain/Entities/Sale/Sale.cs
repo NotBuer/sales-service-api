@@ -33,7 +33,7 @@ public sealed class Sale : Entity
     public decimal SaleTotalPrice { get; private set; }
     public SaleStatus SaleStatus { get; private set; }
     
-    public static Sale CreateSale(
+    public static Sale Create(
         string customerName, string productName,  DateTime soldIn,  string soldBy,  byte productAmount,
         decimal productUnitPrice,  decimal productUnitDiscount,  decimal saleTotalPrice,  SaleStatus saleStatus)
     {
@@ -46,11 +46,11 @@ public sealed class Sale : Entity
     }
     
     // TODO: Validate sale change behavior later on. 
-    public static void ChangeSale(Sale sale) =>
+    public static void Change(Sale sale) =>
         sale.RaiseEvent(new SaleChangedDomainEvent());
 
     // TODO: Validate sale cancel behavior later on.
-    public static void CancelSale(Sale sale) =>
+    public static void Cancel(Sale sale) =>
         sale.RaiseEvent(new SaleCanceledDomainEvent());
 }
 
