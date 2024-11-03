@@ -36,9 +36,11 @@ public class Customer : Entity
         customer.RaiseEvent(new CustomerUpdatedDomainEvent());
         return customer;
     }
-    
-    public static void Delete(Customer customer) =>
-        customer.RaiseEvent(new CustomerDeletedDomainEvent());
+
+    public void Delete(Guid id)
+    {
+        RaiseEvent(new CustomerDeletedDomainEvent());
+    }
         
 }
 

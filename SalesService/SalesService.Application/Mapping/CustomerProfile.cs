@@ -9,8 +9,18 @@ public class CustomerProfile : Profile
 {
     public CustomerProfile()
     {
+        AddGlobalIgnore(nameof(Customer.DomainEvents));
+        AddGlobalIgnore(nameof(Customer.Id));
+        
+        CreateMap<Customer, CustomerDto>()
+            .ForMember(dest => dest.Name,
+                opt => opt.MapFrom(src => src.Name))
+            .ForMember(dest => dest.Email,
+                opt => opt.MapFrom(src => src.Email));
+        
         CustomerCreateMapping();
         CustomerUpdateMapping();
+        CustomerDeleteMapping();
     }
 
     private void CustomerCreateMapping()
@@ -21,12 +31,6 @@ public class CustomerProfile : Profile
                 opt => opt.MapFrom(src => src.CustomerDto.Name))
             .ForMember(dest => dest.Email,
                 opt => opt.MapFrom(src => src.CustomerDto.Email));
-        
-        CreateMap<Customer, CustomerDto>()
-            .ForMember(dest => dest.Name,
-                opt => opt.MapFrom(src => src.Name))
-            .ForMember(dest => dest.Email,
-                opt => opt.MapFrom(src => src.Email));
     }
 
     private void CustomerUpdateMapping()
@@ -37,11 +41,12 @@ public class CustomerProfile : Profile
                 opt => opt.MapFrom(src => src.CustomerDto.Name))
             .ForMember(dest => dest.Email,
                 opt => opt.MapFrom(src => src.CustomerDto.Email));
+    }
 
-        CreateMap<Customer, CustomerDto>()
-            .ForMember(dest => dest.Name, 
-                opt => opt.MapFrom(src => src.Name))
-            .ForMember(dest => dest.Email,
-                opt => opt.MapFrom(src => src.Email));
+    private void CustomerDeleteMapping()
+    {
+        CreateMap<DeleteCustomerRequest, Customer>()
+            .ForMember(dest => dest.Id,
+                opt => opt.MapFrom(src => src.Id));
     }
 }

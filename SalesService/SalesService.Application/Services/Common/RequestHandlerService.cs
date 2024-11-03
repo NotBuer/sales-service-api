@@ -55,11 +55,23 @@ public class RequestHandlerService<TRequest, TContent, TEntity>(
         return new RequestHandlerContent<TContent>(validationResult, content);
     }
 
-    public Task<RequestHandlerContent<TContent>> DeleteAsync(
+    public async Task<RequestHandlerContent<TContent>> DeleteAsync(
         TRequest request,
         ValidationResult validationResult,
         CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        validationResult.AddFluentValidationResult(await validator.ValidateAsync(request, cancellationToken));
+        if (!validationResult.IsValid) return new RequestHandlerContent<TContent>(validationResult);
+        
+        await unitOfWork.BeginAsync(cancellationToken);
+
+        var entity = await repository.GetByIdAsync(((IDeleteRequest)request).Id, false, cancellationToken);
+        if (entity is null) return new RequestHandlerContent<TContent>(validationResult);
+
+        await repository.DeleteAsync(mapper.Map(request, entity), cancellationToken);
+        
+        await unitOfWork.CommitAsync(cancellationToken);
+        
+        return new RequestHandlerContent<TContent>(validationResult, null);
     }
 }

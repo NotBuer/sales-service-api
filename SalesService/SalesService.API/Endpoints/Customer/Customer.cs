@@ -14,5 +14,9 @@ internal static partial class Customer
         app.MapPut("customer", Put)
             .Produces<CustomerUpdatedResponse<CustomerDto>>()
             .WithMetadata(new ResponseMetadataProvider());
+        
+        app.MapDelete("customer", Delete)
+            .Produces<CustomerDeletedResponse<CustomerDto>>()
+            .WithMetadata(new ResponseMetadataProvider());
     }
 }

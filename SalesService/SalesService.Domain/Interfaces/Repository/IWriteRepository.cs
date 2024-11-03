@@ -5,5 +5,5 @@ public interface IWriteRepository<TEntity>
 {
     Task<TEntity> AddAsync(TEntity entity, CancellationToken cancellationToken);
     Task<TEntity?> UpdateAsync(TEntity entity, CancellationToken cancellationToken);
-    Task<TEntity> DeleteAsync(TEntity entity, CancellationToken cancellationToken);
+    Task DeleteAsync(TEntity entity, CancellationToken cancellationToken);
 }

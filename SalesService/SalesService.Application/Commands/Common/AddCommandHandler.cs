@@ -18,9 +18,7 @@ public class AddCommandHandler<TRequest, TResponse, TContent, TEntity>(
         var validationResult = new ValidationResult();
 
         var requestHandlerContent = await requestHandlerService.AddAsync(request, validationResult, cancellationToken);
-        
-        validationResult.Add(requestHandlerContent.ValidationResult);
-        
+
         return new TResponse()
         {
             Content =  requestHandlerContent.Content,

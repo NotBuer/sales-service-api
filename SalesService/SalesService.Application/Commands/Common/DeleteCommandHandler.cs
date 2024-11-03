@@ -5,10 +5,10 @@ using SalesService.Domain.Validations;
 
 namespace SalesService.Application.Commands.Common;
 
-public class UpdateCommandHandler<TRequest, TResponse, TContent, TEntity>(
+public class DeleteCommandHandler<TRequest, TResponse, TContent, TEntity>(
     IRequestHandlerService<TRequest, TContent, TEntity> requestHandlerService) : 
-    IUpdateCommandHandler<TRequest, TResponse, TContent, TEntity>
-    where TRequest : IUpdateRequest
+    IDeleteCommandHandler<TRequest, TResponse, TContent, TEntity>
+    where TRequest : IDeleteRequest
     where TResponse : Response<TContent>, new()
     where TContent : class
     where TEntity : class
@@ -16,13 +16,13 @@ public class UpdateCommandHandler<TRequest, TResponse, TContent, TEntity>(
     public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken)
     {
         var validationResult = new ValidationResult();
-
-        var requestHandlerContent = await requestHandlerService.UpdateAsync(request, validationResult, cancellationToken);
+        
+        var requestHandlerContent = await requestHandlerService.DeleteAsync(request, validationResult, cancellationToken);
         
         return new TResponse()
         {
             Content = requestHandlerContent.Content,
-            Metadata = new Metadata("Okay", "Update executed successfully!", DateTime.UtcNow),
+            Metadata = new Metadata("Okay", "Delete executed successfully!", DateTime.UtcNow),
             ValidationResult = validationResult
         };
     }

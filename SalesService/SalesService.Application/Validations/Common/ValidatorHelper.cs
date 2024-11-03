@@ -7,4 +7,7 @@ public static class ValidatorHelper
 
     public static string RuleMessage_InvalidEmail() =>
         $"Valid email address is required.";
+    
+    public static bool IsGuid(string guid)
+        => Guid.TryParse(guid, out _);
 }

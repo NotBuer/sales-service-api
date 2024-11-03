@@ -16,6 +16,7 @@ public static class DependencyInjection
         
         services.AddScoped(typeof(IAddCommandHandler<,,,>), typeof(AddCommandHandler<,,,>));
         services.AddScoped(typeof(IUpdateCommandHandler<,,,>), typeof(UpdateCommandHandler<,,,>));
+        services.AddScoped(typeof(IDeleteCommandHandler<,,,>), typeof(DeleteCommandHandler<,,,>));
 
         services.AddScoped(typeof(IRequestHandlerService<,,>), typeof(RequestHandlerService<,,>));
         

@@ -9,5 +9,7 @@ namespace SalesService.API.JsonSerialization;
 [JsonSerializable(typeof(CustomerCreatedResponse<>))]
 [JsonSerializable(typeof(UpdateCustomerRequest))]
 [JsonSerializable(typeof(CustomerUpdatedResponse<>))]
+[JsonSerializable(typeof(CustomerDeletedResponse<>))]
+[JsonSerializable(typeof(DeleteCustomerRequest))]
 [JsonSerializable(typeof(CustomerDto))]
 internal partial class CustomerJsonSerializerContext : JsonSerializerContext;

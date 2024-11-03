@@ -19,16 +19,17 @@ public sealed class Repository<TEntity>(Context.Context context) : IRepository<T
         CancellationToken cancellationToken) =>
         await Task.Run(() => _dbSet.Update(entity).Entity, cancellationToken);
 
-    public async Task<TEntity> DeleteAsync(
+    public async Task DeleteAsync(
         TEntity entity,
         CancellationToken cancellationToken) =>
-        await Task.Run(() => _dbSet.Remove(entity).Entity, cancellationToken);
+        await Task.Run(() => _dbSet.Remove(entity), cancellationToken);
 
     public async Task<TEntity?> GetByIdAsync(
         Guid id, 
         bool @readonly,
         CancellationToken cancellationToken)
     {
+        
         var entity = await _dbSet.FindAsync(new object?[] { id }, cancellationToken: cancellationToken);
 
         if (@readonly && entity is not null)
