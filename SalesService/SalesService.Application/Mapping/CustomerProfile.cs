@@ -11,8 +11,8 @@ public class CustomerProfile : Profile
 {
     public CustomerProfile()
     {
-        AddGlobalIgnore(nameof(Customer.DomainEvents));
         AddGlobalIgnore(nameof(Customer.Id));
+        AddGlobalIgnore(nameof(Customer.DomainEvents));
 
         CreateMap<CreateCustomerRequest, Customer>()
             .ConstructUsing(src => Customer.Create(src.CreateCustomerDto.Name, src.CreateCustomerDto.Email))
@@ -28,9 +28,5 @@ public class CustomerProfile : Profile
                 opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.Email,
                 opt => opt.MapFrom(src => src.Email));
-        
-        // CreateMap<Customer, CustomerCreatedDto>()
-        //     .ForMember(dest => dest.Content,
-        //         opt => opt.MapFrom(src => ))
     }
 }
