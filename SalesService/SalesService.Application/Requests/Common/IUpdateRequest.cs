@@ -2,5 +2,5 @@
 
 public interface IUpdateRequest : IRequest
 {
-    
+    public Guid Id { get; set; }
 }

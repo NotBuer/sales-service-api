@@ -1,5 +1,6 @@
 ﻿using SalesService.Application.DTOs.Customer.Created;
-using SalesService.Application.Requests.Common;
+using SalesService.Application.Requests.Customer;
+using SalesService.Application.Responses.Customer;
 
 namespace SalesService.API.Endpoints.Customer;
 

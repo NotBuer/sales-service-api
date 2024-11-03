@@ -2,5 +2,5 @@
 
 public interface IDeleteRequest : IRequest
 {
-    
+    public Guid Id { get; set; }
 }

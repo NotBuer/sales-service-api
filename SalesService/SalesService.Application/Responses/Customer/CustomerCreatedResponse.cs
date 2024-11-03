@@ -1,7 +1,7 @@
 ﻿using SalesService.Application.Responses.Common;
 using SalesService.Domain.Validations;
 
-namespace SalesService.Application.Responses;
+namespace SalesService.Application.Responses.Customer;
 
 public sealed class CustomerCreatedResponse<TContent> : Response<TContent>
     where TContent : class

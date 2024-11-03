@@ -14,7 +14,7 @@ public sealed class Repository<TEntity>(Context.Context context) : IRepository<T
         CancellationToken cancellationToken) =>
         (await _dbSet.AddAsync(entity, cancellationToken)).Entity;
 
-    public async Task<TEntity> UpdateAsync(
+    public async Task<TEntity?> UpdateAsync(
         TEntity entity,
         CancellationToken cancellationToken) =>
         await Task.Run(() => _dbSet.Update(entity).Entity, cancellationToken);

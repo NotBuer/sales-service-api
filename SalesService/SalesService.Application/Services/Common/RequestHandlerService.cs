@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using SalesService.Application.Requests.Common;
-using SalesService.Application.Responses.Common;
 using SalesService.Domain.Interfaces.Repository;
 using SalesService.Domain.Validations;
 using SalesService.Infrastructure.UnitOfWork;
@@ -9,7 +8,7 @@ using SalesService.Infrastructure.UnitOfWork;
 namespace SalesService.Application.Services.Common;
 
 public class RequestHandlerService<TRequest, TContent, TEntity>(
-    IWriteRepository<TEntity> repository,
+    IRepository<TEntity> repository,
     IValidator<TRequest> validator,
     IMapper mapper,
     IUnitOfWork unitOfWork) : 
@@ -28,21 +27,32 @@ public class RequestHandlerService<TRequest, TContent, TEntity>(
         if (!validationResult.IsValid) return new RequestHandlerContent<TContent>(validationResult);
         
         await unitOfWork.BeginAsync(cancellationToken);
-
-        var entity = mapper.Map<TEntity>(request);
-        var content = mapper.Map<TContent>(await repository.AddAsync(entity, cancellationToken));
+        
+        var content = mapper.Map<TContent>(await repository.AddAsync(mapper.Map<TEntity>(request), cancellationToken));
         
         await unitOfWork.CommitAsync(cancellationToken);
         
         return new RequestHandlerContent<TContent>(validationResult, content);
     }
 
-    public Task<RequestHandlerContent<TContent>> UpdateAsync(
+    public async Task<RequestHandlerContent<TContent>> UpdateAsync(
         TRequest request,
         ValidationResult validationResult,
         CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        validationResult.AddFluentValidationResult(await validator.ValidateAsync(request, cancellationToken));
+        if (!validationResult.IsValid) return new RequestHandlerContent<TContent>(validationResult);
+        
+        await unitOfWork.BeginAsync(cancellationToken);
+        
+        var entity = await repository.GetByIdAsync(((IUpdateRequest)request).Id, false, cancellationToken);
+        if (entity is null) return new RequestHandlerContent<TContent>(validationResult);
+
+        var content = mapper.Map<TContent>(await repository.UpdateAsync(mapper.Map(request, entity), cancellationToken));
+
+        await unitOfWork.CommitAsync(cancellationToken);
+        
+        return new RequestHandlerContent<TContent>(validationResult, content);
     }
 
     public Task<RequestHandlerContent<TContent>> DeleteAsync(
