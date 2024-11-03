@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using SalesService.Application.DTOs.Customer.Updated;
+﻿using SalesService.Application.DTOs.Customer;
 using SalesService.Application.Requests.Customer;
 using SalesService.Application.Responses.Customer;
 
@@ -10,8 +9,8 @@ internal static partial class Customer
     private static async Task<IResult> Put(
         IUpdateCommandHandler<
             UpdateCustomerRequest,
-            CustomerUpdatedResponse<CustomerUpdatedDto>,
-            CustomerUpdatedDto,
+            CustomerUpdatedResponse<CustomerDto>,
+            CustomerDto,
             Domain.Entities.Customer.Customer> commandHandler,
         UpdateCustomerRequest request,
         CancellationToken cancellationToken)

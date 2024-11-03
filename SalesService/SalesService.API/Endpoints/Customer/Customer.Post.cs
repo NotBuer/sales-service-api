@@ -1,4 +1,4 @@
-﻿using SalesService.Application.DTOs.Customer.Created;
+﻿using SalesService.Application.DTOs.Customer;
 using SalesService.Application.Requests.Customer;
 using SalesService.Application.Responses.Customer;
 
@@ -9,8 +9,8 @@ internal static partial class Customer
     private static async Task<IResult> Post(
         IAddCommandHandler<
             CreateCustomerRequest,
-            CustomerCreatedResponse<CustomerCreatedDto>,
-            CustomerCreatedDto,
+            CustomerCreatedResponse<CustomerDto>,
+            CustomerDto,
             Domain.Entities.Customer.Customer> commandHandler,
         CreateCustomerRequest request,
         CancellationToken cancellationToken)

@@ -24,7 +24,7 @@ public class AddCommandHandler<TRequest, TResponse, TContent, TEntity>(
         return new TResponse()
         {
             Content =  requestHandlerContent.Content,
-            Metadata = new Metadata("Okay", "Update executed successfully!", DateTime.UtcNow),
+            Metadata = new Metadata("Okay", "Create executed successfully!", DateTime.UtcNow),
             ValidationResult = validationResult,
         };
     }

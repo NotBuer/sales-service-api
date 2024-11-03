@@ -29,7 +29,7 @@ public class Customer : Entity
         customer.RaiseEvent(new CustomerCreatedDomainEvent());
         return customer;
     }
-
+    
     public static Customer Update(Guid id, string name, string email)
     {
         var customer = new Customer(id, name, email);

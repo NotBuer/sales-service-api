@@ -35,7 +35,8 @@ public class UnitOfWork(
                     .Select(x => x.Entity)
                     .ToList();
             
-            domainEventHandler.Handle(domainEventEntities);
+            if (domainEventEntities.Count > 0)
+                domainEventHandler.Handle(domainEventEntities);
             
             await _transaction!.CommitAsync(cancellationToken);
         }
