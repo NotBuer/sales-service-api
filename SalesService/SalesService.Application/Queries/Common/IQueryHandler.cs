@@ -3,12 +3,23 @@ using SalesService.Application.Responses.Common;
 
 namespace SalesService.Application.Queries.Common;
 
-public interface IQueryHandler<TRequest, TResponse>
+public interface IQueryHandler<TRequest, TResponse, TContent, TEntity>
     where TRequest: IRequest
-    where TResponse: IResponse
+    where TResponse: Response<TContent>, new()
+    where TContent: class
+    where TEntity : class
 {
     public Task<TResponse> Handle(TRequest request, CancellationToken token);
 }
 
-public interface IGetByIdQueryHandler<TRequest, TResponse> : IQueryHandler<TRequest, TResponse> where TRequest : class, IGetByIdRequest where TResponse : IResponse
-{  }
+public interface IGetByIdQueryHandler<TRequest, TResponse, TContent, TEntity> : IQueryHandler<TRequest, TResponse, TContent, TEntity>
+    where TRequest : IGetByIdRequest 
+    where TResponse : Response<TContent>, new()
+    where TContent : class
+    where TEntity : class;
+
+public interface ISearchQueryHandler<TRequest, TResponse, TContent, TEntity> : IQueryHandler<TRequest, TResponse, TContent, TEntity>
+    where TRequest : ISearchRequest
+    where TResponse : Response<TContent>, new()
+    where TContent : class
+    where TEntity : class;

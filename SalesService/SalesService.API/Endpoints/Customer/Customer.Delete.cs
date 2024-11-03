@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using SalesService.Application.DTOs.Customer;
-using SalesService.Application.Requests.Customer;
+﻿using SalesService.Application.Requests.Customer;
 using SalesService.Application.Responses.Customer;
 
 namespace SalesService.API.Endpoints.Customer;
@@ -13,10 +11,10 @@ internal static partial class Customer
             CustomerDeletedResponse<object>,
             object,
             Domain.Entities.Customer.Customer> commandHandler,
-        [FromBody] DeleteCustomerRequest request,
+        Guid id,
         CancellationToken cancellationToken)
     {
-        var response = await commandHandler.Handle(request, cancellationToken);
+        var response = await commandHandler.Handle(new DeleteCustomerRequest(id), cancellationToken);
         return Result.From(new { response.Content, response.Metadata }, response.ValidationResult);
     }
 }

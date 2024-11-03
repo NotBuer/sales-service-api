@@ -1,13 +1,12 @@
 ﻿using FluentValidation;
-using SalesService.Application.DTOs.Customer;
 using SalesService.Application.Requests.Common;
 using SalesService.Application.Validations.Common;
 
 namespace SalesService.Application.Requests.Customer;
 
-public record DeleteCustomerRequest() : IDeleteRequest
+public record DeleteCustomerRequest(Guid id) : IDeleteRequest
 {
-    public Guid Id { get; set; }
+    public Guid Id { get; set; } = id;
 }
 
 public class DeleteCustomerRequestValidator : AbstractValidator<DeleteCustomerRequest>

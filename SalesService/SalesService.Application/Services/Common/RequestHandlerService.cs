@@ -74,4 +74,13 @@ public class RequestHandlerService<TRequest, TContent, TEntity>(
         
         return new RequestHandlerContent<TContent>(validationResult, null);
     }
+
+    public async Task<RequestHandlerContent<TContent>> GetByIdAsync(
+        Guid id, 
+        bool @readonly = true, 
+        CancellationToken cancellationToken = default)
+    {
+        var entity = await repository.GetByIdAsync(id, true, cancellationToken);
+        return new RequestHandlerContent<TContent>(new ValidationResult(), mapper.Map<TContent>(entity));
+    }
 }

@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using SalesService.Application.Commands.Common;
+using SalesService.Application.Queries.Common;
 using SalesService.Application.Requests.Common;
 using SalesService.Application.Services.Common;
 using SalesService.Application.Validations.Common;
@@ -17,6 +18,8 @@ public static class DependencyInjection
         services.AddScoped(typeof(IAddCommandHandler<,,,>), typeof(AddCommandHandler<,,,>));
         services.AddScoped(typeof(IUpdateCommandHandler<,,,>), typeof(UpdateCommandHandler<,,,>));
         services.AddScoped(typeof(IDeleteCommandHandler<,,,>), typeof(DeleteCommandHandler<,,,>));
+
+        services.AddScoped(typeof(IGetByIdQueryHandler<,,,>), typeof(GetByIdQueryHandler<,,,>));
 
         services.AddScoped(typeof(IRequestHandlerService<,,>), typeof(RequestHandlerService<,,>));
         

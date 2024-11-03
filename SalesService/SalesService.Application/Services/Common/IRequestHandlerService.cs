@@ -1,4 +1,5 @@
-﻿using SalesService.Application.Requests.Common;
+﻿using System.Linq.Expressions;
+using SalesService.Application.Requests.Common;
 using SalesService.Application.Responses.Common;
 using SalesService.Domain.Validations;
 
@@ -21,4 +22,9 @@ public interface IRequestHandlerService<TRequest, TContent, TEntity>
         TRequest request, 
         ValidationResult validationResult, 
         CancellationToken cancellationToken);
+    
+    Task<RequestHandlerContent<TContent>> GetByIdAsync (
+        Guid id,
+        bool @readonly = true,
+        CancellationToken cancellationToken = default);
 }

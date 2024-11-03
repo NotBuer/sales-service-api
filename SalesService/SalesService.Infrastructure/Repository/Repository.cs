@@ -26,10 +26,9 @@ public sealed class Repository<TEntity>(Context.Context context) : IRepository<T
 
     public async Task<TEntity?> GetByIdAsync(
         Guid id, 
-        bool @readonly,
-        CancellationToken cancellationToken)
+        bool @readonly = true,
+        CancellationToken cancellationToken = default)
     {
-        
         var entity = await _dbSet.FindAsync(new object?[] { id }, cancellationToken: cancellationToken);
 
         if (@readonly && entity is not null)
@@ -40,8 +39,8 @@ public sealed class Repository<TEntity>(Context.Context context) : IRepository<T
 
     public async Task<IQueryable<TEntity>> SearchAsync(
         Expression<Func<TEntity, bool>> predicate,
-        bool @readonly,
-        CancellationToken cancellationToken) =>
+        bool @readonly = true,
+        CancellationToken cancellationToken = default) =>
         await Task.Run(() => @readonly ? 
             _dbSet.Where(predicate).AsNoTracking() : 
             _dbSet.Where(predicate), cancellationToken);

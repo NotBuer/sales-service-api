@@ -2,5 +2,5 @@
 
 public interface IGetByIdRequest : IRequest
 {
-    
+    public Guid Id { get; set; }
 }

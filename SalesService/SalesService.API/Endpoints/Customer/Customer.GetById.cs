@@ -1,17 +1,22 @@
 ﻿using SalesService.Application.DTOs.Customer;
 using SalesService.Application.Queries.Common;
 using SalesService.Application.Requests.Common;
+using SalesService.Application.Responses.Customer;
 
 namespace SalesService.API.Endpoints.Customer;
 
 internal static partial class Customer
 {
-    // internal static Task<IResult> GetById(
-    //     IGetByIdQueryHandler<IGetByIdRequest, CustomerDto> queryHandler,
-    //     Guid customerId,
-    //     CancellationToken cancellationToken)
-    // {
-    //     // await queryHandler.Handle(, cancellationToken);
-    //     throw new NotImplementedException();
-    // }
+    private static async Task<IResult> GetById(
+        IGetByIdQueryHandler<
+            IGetByIdRequest,
+            CustomerResponse<CustomerDto>,
+            CustomerDto,
+            Domain.Entities.Customer.Customer> queryHandler,
+        Guid id,
+        CancellationToken cancellationToken)
+    {
+        var response = await queryHandler.Handle(new GetByIdRequest(id), cancellationToken);
+        return Result.From(new { response.Content, response.Metadata }, response.ValidationResult);
+    }
 }
