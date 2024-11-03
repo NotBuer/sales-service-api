@@ -13,9 +13,9 @@ public static class DependencyInjection
         services.AddAutoMapper(ApplicationLayerAssembly.Assemblies);
         services.AddScoped(typeof(IValidator<>), typeof(RequestValidator<>));
         
-        services.AddScoped(typeof(IAddCommandHandler<,,>), typeof(AddCommandHandler<,,>));
+        services.AddScoped(typeof(IAddCommandHandler<,,,>), typeof(AddCommandHandler<,,,>));
 
-        services.AddScoped(typeof(IRequestHandlerService<,>), typeof(RequestHandlerService<,>));
+        services.AddScoped(typeof(IRequestHandlerService<,,>), typeof(RequestHandlerService<,,>));
         
         return services;
     }

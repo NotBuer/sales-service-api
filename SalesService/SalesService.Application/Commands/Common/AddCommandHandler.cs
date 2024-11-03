@@ -5,11 +5,12 @@ using SalesService.Domain.Validations;
 
 namespace SalesService.Application.Commands.Common;
 
-public class AddCommandHandler<TRequest, TResponse, TEntity>(
-    IRequestHandlerService<TRequest, TEntity> requestHandlerService) : 
-    IAddCommandHandler<TRequest, TResponse, TEntity>
+public class AddCommandHandler<TRequest, TResponse, TContent, TEntity>(
+    IRequestHandlerService<TRequest, TContent, TEntity> requestHandlerService) : 
+    IAddCommandHandler<TRequest, TResponse, TContent, TEntity>
     where TRequest : IAddRequest
-    where TResponse : IResponse, new()
+    where TResponse : Response<TContent>, new()
+    where TContent : class
     where TEntity : class
 {
     public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken)
@@ -17,15 +18,14 @@ public class AddCommandHandler<TRequest, TResponse, TEntity>(
         var validationResult = new ValidationResult();
 
         var requestHandlerContent = await requestHandlerService.AddAsync(request, validationResult, cancellationToken);
+        
         validationResult.Add(requestHandlerContent.ValidationResult);
         
-        var response = new TResponse()
+        return new TResponse()
         {
+            Content =  requestHandlerContent.Content,
             Metadata = new Metadata("Okay", "Metadata AddCommandHandler", DateTime.UtcNow),
             ValidationResult = validationResult,
-            Content = requestHandlerContent.Content 
         };
-
-        return response;
     }
 }

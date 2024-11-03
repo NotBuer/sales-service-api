@@ -1,9 +1,15 @@
-﻿namespace SalesService.API.Endpoints.Customer;
+﻿using SalesService.Application.DTOs.Customer.Created;
+
+namespace SalesService.API.Endpoints.Customer;
 
 internal static partial class Customer
 {
     private static async Task<IResult> Post(
-        IAddCommandHandler<CreateCustomerRequest, CustomerCreatedResponse, Domain.Entities.Customer.Customer> commandHandler,
+        IAddCommandHandler<
+            CreateCustomerRequest,
+            CustomerCreatedResponse<CustomerCreatedDto>,
+            CustomerCreatedDto,
+            Domain.Entities.Customer.Customer> commandHandler,
         CreateCustomerRequest request,
         CancellationToken cancellationToken)
     {

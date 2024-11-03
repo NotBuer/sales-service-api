@@ -2,23 +2,14 @@
 
 namespace SalesService.Application.Services.Common;
 
-public struct RequestHandlerContent
+public struct RequestHandlerContent<TContent>
 {
-    private RequestHandlerContent(ValidationResult validationResult, object? content = null)
+    public RequestHandlerContent(ValidationResult validationResult, TContent? content = default)
     {
         ValidationResult = validationResult;
         Content = content;
     }
     
     public ValidationResult ValidationResult { get; init; }
-    public object? Content { get; init; }
-
-    public static RequestHandlerContent NoContent(
-        ValidationResult validationResult) =>
-        new(validationResult);
-    
-    public static RequestHandlerContent WithContent(
-        ValidationResult validationResult,
-        object? content) =>
-        new(validationResult, content);
+    public TContent? Content { get; init; }
 }
