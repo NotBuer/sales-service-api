@@ -46,7 +46,10 @@ public class CustomerProfile : Profile
     private void CustomerDeleteMapping()
     {
         CreateMap<DeleteCustomerRequest, Customer>()
+            .ConstructUsing(src => Customer.Delete(src.Id))
             .ForMember(dest => dest.Id,
-                opt => opt.MapFrom(src => src.Id));
+                opt => opt.MapFrom(src => src.Id))
+            .ForMember(dest => dest.Name, opt => opt.Ignore())
+            .ForMember(dest => dest.Email, opt => opt.Ignore());
     }
 }
