@@ -15,6 +15,6 @@ internal static partial class Customer
         CancellationToken cancellationToken)
     {
         var response = await commandHandler.Handle(new DeleteCustomerRequest(id), cancellationToken);
-        return Result.From(new { response.Content, response.Metadata }, response.ValidationResult);
+        return Result.From(new { response.Content, response.Metadata }, new());
     }
 }

@@ -1,6 +1,4 @@
-﻿using SalesService.Application.DTOs.Customer;
-using SalesService.Application.Responses.Common;
-using SalesService.Domain.Validations;
+﻿using SalesService.Application.Responses.Common;
 
 namespace SalesService.Application.Responses.Customer;
 
@@ -11,15 +9,12 @@ public sealed class CustomerDeletedResponse<TContent> : Response<TContent>
 
     public CustomerDeletedResponse(
         TContent content,
-        Metadata metadata,
-        ValidationResult validationResult)
+        Metadata metadata)
     {
         Content = content;
         Metadata = metadata;
-        ValidationResult = validationResult;
     }
     
     public override TContent? Content { get; init; }
     public override Metadata Metadata { get; init; }
-    public override ValidationResult ValidationResult { get; init; }
 }

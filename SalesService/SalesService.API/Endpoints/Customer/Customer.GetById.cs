@@ -17,6 +17,6 @@ internal static partial class Customer
         CancellationToken cancellationToken)
     {
         var response = await queryHandler.Handle(new GetByIdRequest(id), cancellationToken);
-        return Result.From(new { response.Content, response.Metadata }, response.ValidationResult);
+        return Result.From(new { response.Content, response.Metadata }, new());
     }
 }

@@ -19,8 +19,7 @@ public class GetByIdQueryHandler<TRequest, TResponse, TContent, TEntity>(
         return new TResponse()
         {
             Content = requestHandlerContent.Content,
-            Metadata = new Metadata("Okay", "GetById executed successfully!", DateTime.UtcNow),
-            ValidationResult = requestHandlerContent.ValidationResult
+            Metadata = new Metadata("Okay", "GetById executed successfully!", DateTime.UtcNow)
         };
     }
 }

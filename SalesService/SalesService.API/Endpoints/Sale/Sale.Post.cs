@@ -2,8 +2,8 @@
 
 internal static partial class Sale
 {
-    internal static void Map(WebApplication app)
+    private static Task<IResult> Post()
     {
-        app.MapPost("sale", Post);
+        throw new NotImplementedException();
     }
 }

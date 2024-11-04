@@ -1,5 +1,4 @@
 ﻿using SalesService.Application.Responses.Common;
-using SalesService.Domain.Validations;
 
 namespace SalesService.Application.Responses.Customer;
 
@@ -10,15 +9,12 @@ public sealed class CustomerUpdatedResponse<TContent> : Response<TContent>
 
     public CustomerUpdatedResponse(
         TContent content,
-        Metadata metadata,
-        ValidationResult validationResult)
+        Metadata metadata)
     {
         Content = content;
         Metadata = metadata;
-        ValidationResult = validationResult;
     }
     
     public override TContent? Content { get; init; }
     public override Metadata Metadata { get; init; }
-    public override ValidationResult ValidationResult { get; init; }
 }

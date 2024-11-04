@@ -4,6 +4,14 @@ namespace SalesService.API.Validations;
 
 internal static class Result
 {
+    // internal static IResult From(object? result, ValidationResult validationResult)
+    // {
+    //     if (validationResult.IsValid) return Results.Ok(result);
+    //     if (result == null) return Results.NotFound();
+    //
+    //     return From(validationResult);
+    // }
+    
     internal static IResult From(object? result, ValidationResult validationResult)
     {
         if (validationResult.IsValid) return Results.Ok(result);

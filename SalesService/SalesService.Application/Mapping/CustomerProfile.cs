@@ -9,8 +9,8 @@ public class CustomerProfile : Profile
 {
     public CustomerProfile()
     {
-        AddGlobalIgnore(nameof(Customer.DomainEvents));
         AddGlobalIgnore(nameof(Customer.Id));
+        AddGlobalIgnore(nameof(Customer.DomainEvents));
         
         CreateMap<Customer, CustomerDto>()
             .ForMember(dest => dest.Name,

@@ -15,4 +15,12 @@
       <PackageReference Include="AutoMapper" Version="13.0.1" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="DTOs\Inventory\Inventory\" />
+      <Folder Include="Requests\Inventory\Inventory\" />
+      <Folder Include="Requests\Sale\" />
+      <Folder Include="Responses\Inventory\Inventory\" />
+      <Folder Include="Responses\Sale\" />
+    </ItemGroup>
+
 </Project>

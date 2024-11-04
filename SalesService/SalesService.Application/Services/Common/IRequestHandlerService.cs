@@ -1,6 +1,4 @@
-﻿using System.Linq.Expressions;
-using SalesService.Application.Requests.Common;
-using SalesService.Application.Responses.Common;
+﻿using SalesService.Application.Requests.Common;
 using SalesService.Domain.Validations;
 
 namespace SalesService.Application.Services.Common;

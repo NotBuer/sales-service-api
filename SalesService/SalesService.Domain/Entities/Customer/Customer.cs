@@ -5,6 +5,11 @@ namespace SalesService.Domain.Entities.Customer;
 
 public class Customer : Entity
 {
+    private Customer(Guid id)
+    {
+        Id = id;
+    }
+    
     private Customer(string name, string email)
     {
         Id = new Guid();
@@ -37,11 +42,13 @@ public class Customer : Entity
         return customer;
     }
 
-    public void Delete(Guid id)
+    public static Customer Delete(Guid id)
     {
-        RaiseEvent(new CustomerDeletedDomainEvent());
+        var customer = new Customer(id);
+        customer.RaiseEvent(new CustomerDeletedDomainEvent());
+        return customer;
     }
-        
+
 }
 
 public sealed record CustomerCreatedDomainEvent() : DomainEvent; 

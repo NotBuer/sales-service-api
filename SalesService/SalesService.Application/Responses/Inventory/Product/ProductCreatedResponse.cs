@@ -1,20 +1,20 @@
 ﻿using SalesService.Application.Responses.Common;
 
-namespace SalesService.Application.Responses.Customer;
+namespace SalesService.Application.Responses.Inventory.Product;
 
-public sealed class CustomerCreatedResponse<TContent> : Response<TContent>
+public sealed class ProductCreatedResponse<TContent> : Response<TContent>
     where TContent : class
 {
-    public CustomerCreatedResponse() {}
-    
-    public CustomerCreatedResponse(
+    public ProductCreatedResponse() { }
+
+    public ProductCreatedResponse(
         TContent content,
         Metadata metadata)
     {
         Content = content;
         Metadata = metadata;
     }
-
+    
     public override TContent? Content { get; init; }
     public override Metadata Metadata { get; init; }
 }

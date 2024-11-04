@@ -22,8 +22,7 @@ public class UpdateCommandHandler<TRequest, TResponse, TContent, TEntity>(
         return new TResponse()
         {
             Content = requestHandlerContent.Content,
-            Metadata = new Metadata("Okay", "Update executed successfully!", DateTime.UtcNow),
-            ValidationResult = validationResult
+            Metadata = new Metadata("Okay", "Update executed successfully!", DateTime.UtcNow)
         };
     }
 }
